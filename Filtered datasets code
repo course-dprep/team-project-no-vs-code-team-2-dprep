@@ -1,0 +1,14 @@
+urls = c('https://datasets.imdbws.com/title.basics.tsv.gz', 'https://datasets.imdbws.com/title.ratings.tsv.gz')
+datasets <- lapply(urls, read_delim, delim='\t', na = '\\N')
+basics <- datasets[[1]]
+ratings = datasets[[2]]
+
+length(which(is.na(basics$runtimeMinutes)))
+
+temp <- basics %>% filter(!is.na(basics$runtimeMinutes))
+mean(temp$runtimeMinutes)
+
+temp1 <- temp %>% filter(temp$titleType == "movie")
+mean(temp1$runtimeMinutes)
+head(temp1)
+
