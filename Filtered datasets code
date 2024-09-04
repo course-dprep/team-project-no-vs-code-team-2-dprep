@@ -25,3 +25,24 @@ head(movies)
 
 #Getting rid of the outliers
 movies <- movies %>% filter(movies$runtimeMinutes <=600)
+
+
+
+
+
+
+# Thriller movies 
+movies_thriller <- str_detect(movies$genres, "Thriller")
+length(which(movies_thriller))
+summary(movies_thriller)
+
+
+# Action movies 
+movies_action <- str_detect(movies$genres, "Action")
+length(which(movies_action))
+summary(movies_action)
+
+# Drama 
+movies_drama <- str_detect(movies$genres, "Drama")
+length(which(movies_drama))
+summary(movies_drama)
