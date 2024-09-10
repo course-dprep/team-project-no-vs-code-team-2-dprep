@@ -15,3 +15,28 @@ The following libaries are being used in R:
   tinytex  
   tidyverse  
   ggplot2  
+  
+## Table of variables 
+```{r, include=FALSE}
+# Load the tibble package
+library(tibble)
+
+# Create the table (tibble)
+table_tbl <- tibble(Variables = c("tconst", "titleType", "primaryTitle", "orginalTitle", "isAdult", "startYear", "runtimeMinutes", "genres", "äverageMinutes", "numVotes"),
+                    Description = c("The movie ID", "The title type, in this dataset only movies", "The title of the movie", "The title of the movie in the original language", "Dummy variable stating if it is a adult movie", "When the movie first launched", "The total run time of the movie in minutes", "The genre of the movie", "The average rating of the movies on a scale of 1-10", "The number of total ratings of a movie"))
+
+# View the table
+print(table_tbl, n = )
+
+table_df = as.data.frame(table_tbl)
+print(table_df)
+
+library(knitr)
+kable(table_df)
+```
+
+
+```{r echo=FALSE}
+kable(table_df)
+```
+
