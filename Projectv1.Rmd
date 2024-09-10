@@ -71,25 +71,23 @@ library(ggplot2)
 
 #visualizing the data
 
-ggplot(movies, aes(x=runtimeMinutes)) +geom_histogram()
-
 boxplot(temp1$runtimeMinutes)
 
 #Getting rid of the outliers
 movies <- movies %>% filter(movies$runtimeMinutes <=600)
 
 ggplot(movies, aes(x=runtimeMinutes)) +geom_histogram()
-boxplot(movies$runtimeMinutes)
-
-ggplot(movies, aes(x=runtimeMinutes)) +geom_histogram()
-ggplot(movies) +geom_point(aes(x=runtimeMinutes, y=averageRating))
+boxplot(movies$runtimeMinutes,
+        main = "Boxplot of Movies runtime",
+        xlab = "Movies",
+        ylab = "runtime Minutes")
 
 movies_long <- movies %>% separate_rows(genres, sep = ",")
 
-ggplot(movies_long, aes(x=genres)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust=1))
-ggplot(movies, aes(x=averageRating)) + geom_bar()
+ggplot(movies_long, aes(x=genres)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust=1)) + ggtitle("Genre by Number of Movies") + ylab("Number of Movies") + xlab("Genres") +  scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
+ggplot(movies, aes(x=averageRating)) + geom_bar() + ggtitle("Average Rating by Number of Movies") + ylab("Number of Movies") + xlab("Average Rating") + scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
 
-
+#we need to add names to each plot, also check if we need the first plot
 ```
 
 
