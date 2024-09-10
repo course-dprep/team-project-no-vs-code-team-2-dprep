@@ -1,0 +1,17 @@
+---
+title: "README"
+author: "Team 2"
+date: "2024-09-10"
+output: html_document
+---
+# Team 2 project
+
+## Introduction
+
+## Research motivation
+
+## Libaries 
+The following libaries are being used in R:  
+  tinytex  
+  tidyverse  
+  ggplot2  
