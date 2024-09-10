@@ -48,8 +48,8 @@ urls = c('https://datasets.imdbws.com/title.basics.tsv.gz', 'https://datasets.im
 datasets <- lapply(urls, read_delim, delim='\t', na = '\\N')
 basics <- datasets[[1]]
 ratings = datasets[[2]]
-
-
+```
+```{r}
 #getting rid of the NAs for runtimeMinutes
 temp <- basics %>% filter(!is.na(basics$runtimeMinutes))
 
@@ -59,7 +59,9 @@ temp1 <- temp %>% filter(temp$titleType == "movie")
 #Merging the ratings and basics
 movies <- merge(temp1, ratings)
 
-
+#Removing the variable endYear, as it only contains NA
+movies <- movies %>% 
+  select(-endYear)
 ```
 
 ```{r, include=FALSE}
@@ -67,27 +69,38 @@ library(ggplot2)
 ```
 
 
+##Visualizing the data
 ```{r}
+boxplot(temp1$runtimeMinutes,
+   main = "Boxplot of Movies runtime",
+        xlab = "Movies",
+        ylab = "runtime Minutes")
+```
+This boxplot shows how the runtime in Minutes of all the movies have been distributed.  
+This boxplot does not give a lot of insights because of this we decided to remove the outliers in the dataset.
 
-#visualizing the data
-
-boxplot(temp1$runtimeMinutes)
-
-#Getting rid of the outliers
+```{r}
 movies <- movies %>% filter(movies$runtimeMinutes <=600)
+```
 
-ggplot(movies, aes(x=runtimeMinutes)) +geom_histogram()
+```{r}
 boxplot(movies$runtimeMinutes,
         main = "Boxplot of Movies runtime",
         xlab = "Movies",
         ylab = "runtime Minutes")
+```
+This boxplot shows how the movies are distributed without the outliers. 
 
+```{r}
 movies_long <- movies %>% separate_rows(genres, sep = ",")
 
-ggplot(movies_long, aes(x=genres)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust=1)) + ggtitle("Genre by Number of Movies") + ylab("Number of Movies") + xlab("Genres") +  scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
-ggplot(movies, aes(x=averageRating)) + geom_bar() + ggtitle("Average Rating by Number of Movies") + ylab("Number of Movies") + xlab("Average Rating") + scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
-
-#we need to add names to each plot, also check if we need the first plot
+ggplot(movies_long, aes(x=genres))+ geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust=1)) + ggtitle("Genre by Number of Movies") + ylab("Number of Movies") + xlab("Genres") +  scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
 ```
+First to make this plot the dataset movies_long has been made. This dataset has split al movies by there genre.
+This plot give an insight which genres are most represent in the dataset.
 
+```{r}
+ggplot(movies, aes(x=averageRating)) + geom_bar() + ggtitle("Average Rating by Number of Movies") + ylab("Number of Movies") + xlab("Average Rating") + scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
+```
+The last plot gives an overview how the Average Rating of all movies in the dataset have been distributed.
 
