@@ -1,7 +1,6 @@
-# Team 2 project
-
 # IMDb – Title project 
-This project explores if there is a correlation between the runtime of a movie and its IMDb rating. We focus on different genres to find out if the result differs across genres, as thi can help filmmakers in deciding how long their films should be. 
+
+This project explores if there is a correlation between the runtime of a movie and its IMDb rating. We focus on different genres to find out if the result differs across genres, as this can help filmmakers in deciding how long their films should be. 
 
 ## Research Motivation 
 The research question — exploring whether there is a correlation between movie runtime and IMDb rating with a specific focus on genre — is of significant importance. This exploration delves into understanding how different genres come with distinct audience expectations. Filmmakers often face tough decisions about how long their films should be. A longer runtime allows for more detailed storytelling, character development, and complex narratives, but it may also test the audience's patience. On the other hand, shorter films might be more accessible and appealing to time-constrained viewers but could risk feeling rushed or underdeveloped. Hence, deciding on the runtime of the movie is a difficult task for a movie maker, and any insight in this can be valuable. 
@@ -17,8 +16,25 @@ Is there a correlation between a movie's runtime and its IMDb rating, with a foc
 ## Research Method 
 Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with  (...) movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between runtime and audience satisfaction but also offers data-driven guidance for filmmakers.
 
+The following variables are being used in the dataset:  
+  
+| Variables | Description | 
+|---------|---------|
+| tconst   | The movie ID   | 
+| titleType   | The title type, in the dataset only movies   | 
+| primaryTitle   | The title of the movie   |  
+| originalTitle   | The title of the movie in the original language   |  
+| isAdult   | Dummy variable stating if it is a adult movie   |  
+| startYear   | When the movie first launched   |  
+| runtimeMinutes   | The total run time of the movie in minutes   |  
+| genres   | The genre of the movie   |    
+| averageRating   | The average rating of the movie on a scale of 1-10   |  
+| numVotes   | The number of total ratings of the movie   |  
+
+
 ## Libaries 
 The following libaries are being used in R:  
-  tinytex  
-  tidyverse  
-  ggplot2  
+
+	tinytex  
+    tidyverse  
+    ggplot2  
