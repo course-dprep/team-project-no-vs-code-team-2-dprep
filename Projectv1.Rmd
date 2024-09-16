@@ -59,9 +59,10 @@ temp1 <- temp %>% filter(temp$titleType == "movie")
 #Merging the ratings and basics
 movies <- merge(temp1, ratings)
 
-#Removing the variable endYear, as it only contains NA
+#Removing the variable endYear, as it only contains NAs and originalTitle as it is of use
 movies <- movies %>% 
-  select(-endYear)
+  select(-endYear) %>%
+  select(-originalTitle)
 ```
 
 ```{r, include=FALSE}
