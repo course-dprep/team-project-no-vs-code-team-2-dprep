@@ -48,7 +48,12 @@ urls = c('https://datasets.imdbws.com/title.basics.tsv.gz', 'https://datasets.im
 datasets <- lapply(urls, read_delim, delim='\t', na = '\\N')
 basics <- datasets[[1]]
 ratings = datasets[[2]]
+write_csv(basics, "basics.csv")
+write_csv(ratings, "ratings.csv")
 ```
+
+
+
 ```{r}
 #getting rid of the NAs for runtimeMinutes
 temp <- basics %>% filter(!is.na(basics$runtimeMinutes))
@@ -65,6 +70,7 @@ movies <- movies %>%
   select(-originalTitle)
 ```
 
+
 ```{r, include=FALSE}
 library(ggplot2)
 ```
@@ -76,11 +82,20 @@ boxplot(temp1$runtimeMinutes,
    main = "Boxplot of the runtime of movies",
         ylab = "Runtime in minutes")
 ```
-This boxplot shows how the runtime in Minutes of all the movies has been distributed.  
-The boxplot does not give a lot of insights because there are some big outliers. To get rid of the outliers we have decided to filter the dataset to only show movies with a runtime of less than 300 minutes.
 
-```{r include=FALSE}
-movies <- movies %>% filter(movies$runtimeMinutes <=300)
+
+This boxplot shows how the runtime in Minutes of all the movies have been distributed.  
+This boxplot does not give a lot of insights because of this we decided to remove the outliers in the dataset.
+
+```{r}
+#calculating outliers runtimeMinutes
+sd_runtimeMinutes <- sd(movies$runtimeMinutes)
+mean_runtimeMinutes <- mean(movies$runtimeMinutes)
+lower <- mean_runtimeMinutes - 3 * sd_runtimeMinutes
+outliers_runtimeMinutes <- mean_runtimeMinutes + 3 * sd_runtimeMinutes
+
+#removing outliers
+movies <- movies %>% filter(movies$runtimeMinutes <= outliers_runtimeMinutes)
 
 ```
 
@@ -103,5 +118,12 @@ ggplot(movies, aes(x=averageRating)) + geom_bar() + ggtitle("Average rating by n
 ```
 The last plot gives an overview of how the Average Rating of all movies in the dataset have been distributed.
 
+```{r}
+write_csv(movies, "movies.csv")
+```
+
+```{r}
+movies <- read_csv("movies.csv")
+```
 
 
