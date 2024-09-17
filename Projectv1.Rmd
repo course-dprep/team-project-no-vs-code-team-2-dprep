@@ -49,6 +49,9 @@ datasets <- lapply(urls, read_delim, delim='\t', na = '\\N')
 basics <- datasets[[1]]
 ratings = datasets[[2]]
 ```
+
+
+
 ```{r}
 #getting rid of the NAs for runtimeMinutes
 temp <- basics %>% filter(!is.na(basics$runtimeMinutes))
@@ -64,6 +67,7 @@ movies <- movies %>%
   select(-endYear) %>%
   select(-originalTitle)
 ```
+
 
 ```{r, include=FALSE}
 library(ggplot2)
@@ -103,5 +107,12 @@ ggplot(movies, aes(x=averageRating)) + geom_bar() + ggtitle("Average rating by n
 ```
 The last plot gives an overview of how the Average Rating of all movies in the dataset have been distributed.
 
+```{r}
+write_csv(movies, "movies.csv")
+```
+
+```{r}
+movies <- read_csv("movies.csv")
+```
 
 
