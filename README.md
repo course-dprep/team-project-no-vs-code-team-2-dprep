@@ -1,4 +1,4 @@
-# IMDb – Title project 
+# The Impact of Runtime on IMDb Ratings: A Genre-Focused Study
 
 This project explores if there is a correlation between the runtime of a movie and its IMDb rating. We focus on different genres to find out if the result differs across genres, as this can help filmmakers in deciding how long their films should be. 
 
@@ -22,7 +22,7 @@ The following variables are being used in the dataset:
 |---------|---------|
 | tconst   | The movie ID   | 
 | titleType   | The title type, in the dataset only movies   | 
-| primaryTitle   | The title of the movie   |   
+| primaryTitle   | The title of the movie   |    
 | isAdult   | Dummy variable stating if it is a adult movie   |  
 | startYear   | When the movie first launched   |  
 | runtimeMinutes   | The total run time of the movie in minutes   |  
