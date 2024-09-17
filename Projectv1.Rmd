@@ -99,6 +99,13 @@ movies <- movies %>% filter(movies$runtimeMinutes <= outliers_runtimeMinutes)
 
 ```
 
+```{r}
+#makiong cutoff for numVotes
+movies <- movies %>% 
+  filter(movies$numVotes >= 30)
+```
+
+
 ```{r echo=FALSE}
 boxplot(movies$runtimeMinutes,
         main = "Boxplot of the runtime of movies",
@@ -125,5 +132,3 @@ write_csv(movies, "movies.csv")
 ```{r}
 movies <- read_csv("movies.csv")
 ```
-
-
