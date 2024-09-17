@@ -48,7 +48,12 @@ urls = c('https://datasets.imdbws.com/title.basics.tsv.gz', 'https://datasets.im
 datasets <- lapply(urls, read_delim, delim='\t', na = '\\N')
 basics <- datasets[[1]]
 ratings = datasets[[2]]
+write_csv(basics, "basics.csv")
+write_csv(ratings, "ratings.csv")
 ```
+
+
+
 ```{r}
 #getting rid of the NAs for runtimeMinutes
 temp <- basics %>% filter(!is.na(basics$runtimeMinutes))
@@ -59,10 +64,12 @@ temp1 <- temp %>% filter(temp$titleType == "movie")
 #Merging the ratings and basics
 movies <- merge(temp1, ratings)
 
-#Removing the variable endYear, as it only contains NA
+#Removing the variable endYear, as it only contains NAs and originalTitle as it is of use
 movies <- movies %>% 
-  select(-endYear)
+  select(-endYear) %>%
+  select(-originalTitle)
 ```
+
 
 ```{r, include=FALSE}
 library(ggplot2)
@@ -70,12 +77,12 @@ library(ggplot2)
 
 
 ##Visualizing the data
-```{r}
+```{r echo=FALSE}
 boxplot(temp1$runtimeMinutes,
-   main = "Boxplot of Movies runtime",
-        xlab = "Movies",
-        ylab = "runtime Minutes")
+   main = "Boxplot of the runtime of movies",
+        ylab = "Runtime in minutes")
 ```
+
 
 This boxplot shows how the runtime in Minutes of all the movies have been distributed.  
 This boxplot does not give a lot of insights because of this we decided to remove the outliers in the dataset.
@@ -89,26 +96,34 @@ outliers_runtimeMinutes <- mean_runtimeMinutes + 3 * sd_runtimeMinutes
 
 #removing outliers
 movies <- movies %>% filter(movies$runtimeMinutes <= outliers_runtimeMinutes)
+
 ```
 
-```{r}
+```{r echo=FALSE}
 boxplot(movies$runtimeMinutes,
-        main = "Boxplot of Movies runtime",
-        xlab = "Movies",
-        ylab = "runtime Minutes")
+        main = "Boxplot of the runtime of movies",
+        ylab = "Runtime in minutes")
 ```
-This boxplot shows how the movies are distributed without the outliers. 
+This boxplot shows how the movies are distributed without the outliers and gives us more of an insight to the average length of all the movies.
 
-```{r}
+```{r echo=FALSE}
 movies_long <- movies %>% separate_rows(genres, sep = ",")
 
-ggplot(movies_long, aes(x=genres))+ geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust=1)) + ggtitle("Genre by Number of Movies") + ylab("Number of Movies") + xlab("Genres") +  scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
+ggplot(movies_long, aes(x=genres))+ geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust=1)) + ggtitle("Genre by number of movies") + ylab("Number of movies") + xlab("Genres") +  scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
 ```
-First to make this plot the dataset movies_long has been made. This dataset has split al movies by there genre.
-This plot give an insight which genres are most represent in the dataset.
+This plot gives us an insight to how every singular genre is represented in our dataset.
+
+```{r echo=FALSE}
+ggplot(movies, aes(x=averageRating)) + geom_bar() + ggtitle("Average rating by number of movies") + ylab("Number of movies") + xlab("Average rating") + scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
+```
+The last plot gives an overview of how the Average Rating of all movies in the dataset have been distributed.
 
 ```{r}
-ggplot(movies, aes(x=averageRating)) + geom_bar() + ggtitle("Average Rating by Number of Movies") + ylab("Number of Movies") + xlab("Average Rating") + scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
+write_csv(movies, "movies.csv")
 ```
-The last plot gives an overview how the Average Rating of all movies in the dataset have been distributed.
+
+```{r}
+movies <- read_csv("movies.csv")
+```
+
 
