@@ -48,6 +48,8 @@ urls = c('https://datasets.imdbws.com/title.basics.tsv.gz', 'https://datasets.im
 datasets <- lapply(urls, read_delim, delim='\t', na = '\\N')
 basics <- datasets[[1]]
 ratings = datasets[[2]]
+write_csv(basics, "basics.csv")
+write_csv(ratings, "ratings.csv")
 ```
 
 
