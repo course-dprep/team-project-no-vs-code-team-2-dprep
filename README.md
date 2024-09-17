@@ -18,22 +18,21 @@ Firstly, to collect the required data, we extracted two datasets from the IMDb w
 
 The following variables are being used in the dataset:  
   
-| Variables | Description | 
-|---------|---------|
-| tconst   | The movie ID   | 
-| titleType   | The title type, in the dataset only movies   | 
-| primaryTitle   | The title of the movie   |  
-| originalTitle   | The title of the movie in the original language   |  
-| isAdult   | Dummy variable stating if it is a adult movie   |  
-| startYear   | When the movie first launched   |  
-| runtimeMinutes   | The total run time of the movie in minutes   |  
-| genres   | The genre of the movie   |    
-| averageRating   | The average rating of the movie on a scale of 1-10   |  
-| numVotes   | The number of total ratings of the movie   |  
+| Variables | Description | Data Class
+|---------|---------|---------|
+| tconst   | The movie ID   | numeric
+| titleType   | The title type, in the dataset only movies   | character
+| primaryTitle   | The title of the movie   |  character
+| isAdult   | Dummy variable stating if it is a adult movie   | logical  
+| startYear   | When the movie first launched   |  date
+| runtimeMinutes   | The total run time of the movie in minutes   |  numeric
+| genres   | The genre of the movie   |   character
+| averageRating   | The average rating of the movie on a scale of 1-10   |  numeric
+| numVotes   | The number of total ratings of the movie   |  numeric
 
 
-## Libaries 
-The following libaries are being used in R:  
+## Libraries 
+The following libraries are being used in R:  
 
 	tinytex  
     tidyverse  
