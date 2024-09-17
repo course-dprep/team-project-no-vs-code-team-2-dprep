@@ -76,11 +76,19 @@ boxplot(temp1$runtimeMinutes,
         xlab = "Movies",
         ylab = "runtime Minutes")
 ```
+
 This boxplot shows how the runtime in Minutes of all the movies have been distributed.  
 This boxplot does not give a lot of insights because of this we decided to remove the outliers in the dataset.
 
 ```{r}
-movies <- movies %>% filter(movies$runtimeMinutes <=600)
+#calculating outliers runtimeMinutes
+sd_runtimeMinutes <- sd(movies$runtimeMinutes)
+mean_runtimeMinutes <- mean(movies$runtimeMinutes)
+lower <- mean_runtimeMinutes - 3 * sd_runtimeMinutes
+outliers_runtimeMinutes <- mean_runtimeMinutes + 3 * sd_runtimeMinutes
+
+#removing outliers
+movies <- movies %>% filter(movies$runtimeMinutes <= outliers_runtimeMinutes)
 ```
 
 ```{r}
