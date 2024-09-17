@@ -22,8 +22,7 @@ The following variables are being used in the dataset:
 |---------|---------|
 | tconst   | The movie ID   | 
 | titleType   | The title type, in the dataset only movies   | 
-| primaryTitle   | The title of the movie   |  
-| originalTitle   | The title of the movie in the original language   |  
+| primaryTitle   | The title of the movie   |   
 | isAdult   | Dummy variable stating if it is a adult movie   |  
 | startYear   | When the movie first launched   |  
 | runtimeMinutes   | The total run time of the movie in minutes   |  
