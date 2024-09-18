@@ -4,7 +4,7 @@ library(dplyr)
 library(readr)
 
 # Downloading the dataset 
-movies <- read_csv("movies.csv")
+movies <- read_csv("merged_movies.csv")
 
 # See how many NA's we have for runtimeMinutes
 sum(is.na(movies$runtimeMinutes))
@@ -23,19 +23,24 @@ movies <- movies %>%
   select(-endYear) %>%
   select(-originalTitle)
 
-# making cutoff for numVotes
-mean_votes <- mean(movies$numVotes)
+# This boxplot shows how the runtime in Minutes of all the movies have been distributed.
+# This boxplot does not give a lot of insights because of this we decided to remove the outliers in the dataset.
+boxplot(movies$runtimeMinutes,
+        main = "Boxplot of the runtime of movies",
+        ylab = "Runtime in minutes")
 
-movies <- movies %>% 
-  filter(movies$numVotes >= 30)
+# Making cutoff for runtimeMinutes 
+sd_runtimeMinutes <- sd(movies$runtimeMinutes)
+mean_runtimeMinutes <- mean(movies$runtimeMinutes)
+outliers_runtimeMinutes <- mean_runtimeMinutes + 3 * sd_runtimeMinutes
 
-# making cutoff for runtimeMinutes 
-movies <- movies %>%
-  filter(runtimeMinutes >= 60 & runtimeMinutes <= 240)
+movies <- movies %>% filter(movies$runtimeMinutes <= outliers_runtimeMinutes)
 
+# removing genre == NA 
+sum(is.na(movies$genres))
+movies <- movies %>% filter(!is.na(movies$genres))
 
-
-
-
+# Writing data set to file 
+write_csv(movies, "movies.csv")
 
 
