@@ -49,15 +49,15 @@ movies_long <- movies %>%
   pivot_longer(cols = starts_with("D"), names_to = "Genre", values_to = "HasGenre") %>%
   filter(HasGenre == 1)
 
-# Calculate average rating per genre
-average_rating_per_genre <- movies_long %>%
+# Calculate number of votes per genre
+number_votes <- movies_long %>%
   group_by(Genre) %>%
-  summarise(AverageRating = mean(averageRating, na.rm = TRUE)) %>%
-  arrange(desc(AverageRating))
+  summarise(num_Votes = sum(numVotes)) %>%
+  arrange(desc(num_Votes))
 
-# Get the top 5 genres with the highest average rating
-top_5_genres_rating <- average_rating_per_genre %>%
-  top_n(5, AverageRating)
+# Get the top 5 genres with the most amount of votes
+top_5_genres_numbvotes <- number_votes %>%
+  top_n(5, num_Votes)
 
 # Count the frequency of each genre
 genre_frequency <- movies_long %>%
