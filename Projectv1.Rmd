@@ -9,8 +9,9 @@ date: "2024-09-06"
 ```{r, eval=FALSE, include=FALSE}
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages("tinytex")
-library(tinytex)
 tinytex::install_tinytex()
+library(tinytex)
+
 ```
 ```{r, include=FALSE}
 library(tinytex)
@@ -51,8 +52,6 @@ ratings = datasets[[2]]
 write_csv(basics, "basics.csv")
 write_csv(ratings, "ratings.csv")
 ```
-
-
 
 ```{r}
 #getting rid of the NAs for runtimeMinutes

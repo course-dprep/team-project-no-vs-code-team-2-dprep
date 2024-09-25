@@ -1,95 +1,28 @@
+---
+title: "data_exploration"
+output: html_document
+date: "2024-09-25"
+---
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+```
+
+```{r include=FALSE}
+# Load packages
 library(dplyr)
 library(stringr)
 library(tidyverse)
 library(scales)
+```
 
+```{r include=FALSE}
 # Importing the data set 
 movies <- read_csv("../../gen/data-preparation/output/movies.csv")
-
-# Creating a histogram that shows the frequency of each movie genres
-ggplot(genre_data, aes(x = Genre, y = Count)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "Frequency of Movie Genres", x = "Genre", y = "Count") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  scale_y_continuous(labels = comma)
-
-# Ensure averageRating is numeric
-movies$averageRating <- as.numeric(movies$averageRating)
-
-# This plot gives an overview of how the Average Rating of all movies in the data set have been distributed.
-ggplot(movies, aes(x=averageRating)) + 
-  geom_bar() + ggtitle("Average rating by number of movies") +
-  ylab("Number of movies") + xlab("Average rating") +
-  scale_y_continuous(labels = scales::number_format(big.mark = ",", accuracy = 1))
-
-# Convert data from wide to long format for genres
-movies_long <- movies %>%
-  pivot_longer(cols = starts_with("D"), names_to = "Genre", values_to = "HasGenre") %>%
-  filter(HasGenre == 1)
-
-# Calculate number of votes per genre
-number_votes <- movies_long %>%
-  group_by(Genre) %>%
-  summarise(num_Votes = sum(numVotes)) %>%
-  arrange(desc(num_Votes))
-
-# Get the top 5 genres with the most amount of votes
-top_5_genres_numbvotes <- number_votes %>%
-  top_n(5, num_Votes)
-
-top_5_genres_numbvotes
-
-# Count the frequency of each genre
-genre_frequency <- movies_long %>%
-  group_by(Genre) %>%
-  summarise(Count = n()) %>%
-  arrange(desc(Count))
-
-# Get the top 5 most frequent genres
-top_5_genres_frequency <- genre_frequency %>%
-  top_n(5, Count)
-
-# combining datasets for Genre 
-combined_data_genre <- number_votes %>%
-  left_join(genre_frequency, by = "Genre")
-
-# visualize the distribution of ratings within different genres using boxplots 
-ggplot(movies_long, aes(x = top_5_genres_numbvotes, y = averageRating)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of Ratings by Genre", x = "Genre", y = "Average Rating") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# Boxplot of runtime by genre
-ggplot(movies_long, aes(x = Genre, y = runtimeMinutes, fill = Genre)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of Runtime by Genre", x = "Genre", y = "Runtime (minutes)") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# Filter for specific genres
-selected_genres <- c("Action", "Comedy", "Drama")
-movies_filtered <- movies_long %>%
-  filter(Genre %in% selected_genres)
-
-# Histogram of runtime for the five highest rated genres
-# Filter for specific genres
-selected_genres <- c("DAction", "DComedy", "DDrama", "DRomance","DDocumentary")
-movies_filtered <- movies_long %>%
-  filter(Genre %in% selected_genres)
-
-ggplot(movies_filtered, aes(x = runtimeMinutes, fill = Genre)) +
-  geom_histogram(binwidth = 10, position = "dodge") +
-  labs(title = "Histogram of Runtime for Selected Genres", x = "Runtime (minutes)", y = "Count") +
-  theme_minimal()
+```
 
 
-
-# Load necessary libraries
-library(ggplot2)
-
-# Assuming your dataframe is called movies_df and is already loaded
+```{r echo=FALSE}
+# runtime x rating 
 
 # Create a data frame for the average rating per runtime category
 runtime_avg_rating <- data.frame(
@@ -119,67 +52,36 @@ ggplot(runtime_avg_rating, aes(x = Runtime_Category, y = Average_Rating)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+```
 
+```{r echo=FALSE}
+# genres (top)
+# Convert data from wide to long format for genres
+movies_long <- movies %>%
+  pivot_longer(cols = starts_with("D"), names_to = "Genre", values_to = "HasGenre") %>%
+  filter(HasGenre == 1)
 
-# Load necessary libraries
-library(ggplot2)
+# Calculate number of votes per genre
+number_votes <- movies_long %>%
+  group_by(Genre) %>%
+  summarise(num_Votes = sum(numVotes)) %>%
+  arrange(desc(num_Votes))
 
-# List of genres (dummy variables) to loop through
-genres <- c("DDrama", "DAction", "DComedy", "DAdventure", "DCrime")
+# Get the top 5 genres with the most amount of votes
+top_5_genres_numbvotes <- number_votes %>%
+  top_n(5, num_Votes)
+top_5_genres_numbvotes
+```
 
-# Loop over each genre
-for (genre in genres) {
-  
-  # Filter the dataframe to include only movies of the current genre
-  genre_movies_df <- subset(movies, movies[[genre]] == TRUE)
-  
-  # Create a data frame for the average rating per runtime category for the current genre
-  runtime_avg_rating_genre <- data.frame(
-    Runtime_Category = c("0-30 min", "30-60 min", "60-90 min", "90-120 min", "120-150 min", "150-180 min", ">180 min"),
-    Average_Rating = c(
-      mean(genre_movies_df$averageRating[genre_movies_df$`0-30 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`30-60 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`60-90 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`90-120 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`120-150 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`150-180 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`>180 min` == TRUE], na.rm = TRUE)
-    )
-  )
-  
-  # Convert Runtime_Category into a factor and set the levels to ensure the order is correct
-  runtime_avg_rating_genre$Runtime_Category <- factor(runtime_avg_rating_genre$Runtime_Category, 
-                                                      levels = c("0-30 min", "30-60 min", "60-90 min", "90-120 min", 
-                                                                 "120-150 min", "150-180 min", ">180 min"))
-  
-  # Plotting the data with the correct order for the current genre
-  p <- ggplot(runtime_avg_rating_genre, aes(x = Runtime_Category, y = Average_Rating)) +
-    geom_bar(stat = "identity", fill = "skyblue") +
-    labs(title = paste("Average IMDb Rating by Runtime Category (", genre, " Movies Only)", sep = ""),
-         x = "Runtime Category",
-         y = "Average IMDb Rating") +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  
-  # Display each plot
-  print(p)
-}
-
-
-
-
-# Load necessary libraries
-library(ggplot2)
-library(dplyr)
-
+```{r echo=FALSE}
 # List of genres (dummy variables) to include
-genres <- c("DDrama", "DAction", "DComedy", "DAdventure", "DCrime")
+top_genres <- c("DDrama", "DAction", "DComedy", "DAdventure", "DCrime")
 
 # Initialize an empty dataframe to store results
 combined_data <- data.frame()
 
 # Loop over each genre
-for (genre in genres) {
+for (genre in top_genres) {
   
   # Filter the dataframe to include only movies of the current genre
   genre_movies_df <- subset(movies, movies[[genre]] == TRUE)
@@ -218,7 +120,10 @@ ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   facet_wrap(~ Genre)  # Facet the plot by genre
 
+```
 
+
+```{r echo=FALSE}
 # Load necessary libraries
 library(ggplot2)
 library(dplyr)
@@ -273,4 +178,15 @@ ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating, fill = Genre
     panel.grid.major = element_line(color = "gray", linetype = "dashed")  # Add dashed gridlines
   ) +
   scale_fill_brewer(palette = "Set2")  # Use a distinct color palette for genres
+
+```
+
+
+
+
+
+
+
+
+
 
