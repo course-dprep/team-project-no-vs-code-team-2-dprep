@@ -3,7 +3,7 @@ title: "data_exploration"
 output: html_document
 date: "2024-09-25"
 ---
-```{r, include=FALSE}
+```{r include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 ```
 
@@ -20,7 +20,7 @@ library(scales)
 movies <- read_csv("../../gen/data-preparation/output/movies.csv")
 ```
 
-
+To see whether there is a correlation between the run time of a movie and its IMDB rating we can first take a look at the following plot:
 ```{r echo=FALSE}
 # runtime x rating 
 
@@ -46,15 +46,19 @@ runtime_avg_rating$Runtime_Category <- factor(runtime_avg_rating$Runtime_Categor
 # Plotting the data
 ggplot(runtime_avg_rating, aes(x = Runtime_Category, y = Average_Rating)) +
   geom_bar(stat = "identity", fill = "skyblue") +
-  labs(title = "Average IMDb Rating by Runtime Category",
-       x = "Runtime Category",
+  labs(title = "Average IMDb Rating by Run Time",
+       x = "Run Time",
        y = "Average IMDb Rating") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 
-```{r echo=FALSE}
+
+
+This bar plot shows the average rating for each run time, divided in segments of 30 minutes. As we can see the average rating is at its highest for movies with a run time of 0-30 minutes, then drops at its lowest average at a run time of 60-90 minutes and from there the average rating increases again for each new segment of run time.
+
+```{r include=FALSE}
 # genres (top)
 # Convert data from wide to long format for genres
 movies_long <- movies %>%
@@ -73,54 +77,15 @@ top_5_genres_numbvotes <- number_votes %>%
 top_5_genres_numbvotes
 ```
 
-```{r echo=FALSE}
-# List of genres (dummy variables) to include
-top_genres <- c("DDrama", "DAction", "DComedy", "DAdventure", "DCrime")
+To see whether this difference in average rating differs per genre, we will first filter the data as such that we only use the 5 genres with the most amount of ratings on the IMDB website. These specific genres are:
 
-# Initialize an empty dataframe to store results
-combined_data <- data.frame()
-
-# Loop over each genre
-for (genre in top_genres) {
-  
-  # Filter the dataframe to include only movies of the current genre
-  genre_movies_df <- subset(movies, movies[[genre]] == TRUE)
-  
-  # Create a data frame for the average rating per runtime category for the current genre
-  runtime_avg_rating_genre <- data.frame(
-    Genre = genre, # Add a column for the genre
-    Runtime_Category = c("0-30 min", "30-60 min", "60-90 min", "90-120 min", "120-150 min", "150-180 min", ">180 min"),
-    Average_Rating = c(
-      mean(genre_movies_df$averageRating[genre_movies_df$`0-30 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`30-60 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`60-90 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`90-120 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`120-150 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`150-180 min` == TRUE], na.rm = TRUE),
-      mean(genre_movies_df$averageRating[genre_movies_df$`>180 min` == TRUE], na.rm = TRUE)
-    )
-  )
-  
-  # Combine data for all genres
-  combined_data <- rbind(combined_data, runtime_avg_rating_genre)
-}
-
-# Convert Runtime_Category into a factor and set the levels to ensure the order is correct
-combined_data$Runtime_Category <- factor(combined_data$Runtime_Category, 
-                                         levels = c("0-30 min", "30-60 min", "60-90 min", "90-120 min", 
-                                                    "120-150 min", "150-180 min", ">180 min"))
-
-# Plotting the data with facets for each genre
-ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating)) +
-  geom_bar(stat = "identity", fill = "skyblue") +
-  labs(title = "Average IMDb Rating by Runtime Category Across Genres",
-       x = "Runtime Category",
-       y = "Average IMDb Rating") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  facet_wrap(~ Genre)  # Facet the plot by genre
-
-```
+| Genre | Amount of ratings
+|---------|---------|
+|Drama | 582,736,067
+|Action| 385,116,161	
+|Comedy| 346,572,006	
+|Adventure| 302,863,962
+|Crime| 222,378,249
 
 
 ```{r echo=FALSE}
@@ -167,8 +132,8 @@ combined_data$Runtime_Category <- factor(combined_data$Runtime_Category,
 # Create the grouped bar plot
 ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating, fill = Genre)) +
   geom_bar(stat = "identity", position = "dodge", color = "black") +
-  labs(title = "Average IMDb Rating by Runtime Category and Genre",
-       x = "Runtime Category",
+  labs(title = "Average IMDb Rating by Run Time and Genre",
+       x = "Run Time",
        y = "Average IMDb Rating") +
   theme_minimal(base_size = 14) +  # Set base text size for readability
   theme(
@@ -181,7 +146,7 @@ ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating, fill = Genre
 
 ```
 
-
+This bar plot shows the average rating for each different run time for the five specific genres we chose. For all genres except Comedy the average rating is highest with a run time of 0-30 minutes, for Comedy the average rating is highest with a run time >180 minutes.
 
 
 
