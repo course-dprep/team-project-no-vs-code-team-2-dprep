@@ -1,46 +1,51 @@
-# cleaning the data
-# downloading the packages 
+# Load packages
 library(dplyr)
 library(readr)
 
-# Downloading the dataset 
-movies <- read_csv("merged_movies.csv")
+# DATA CLEANING 
 
-# See how many NA's we have for runtimeMinutes
+# Read the merged dataset from the 'temp' directory
+movies <- read_csv("../../gen/data-preparation/temp/merged_movies.csv")
+
+# Check how many missing values (NA) are present in the 'runtimeMinutes' column
 sum(is.na(movies$runtimeMinutes))
 
-# Getting rid of the NAs for runtimeMinutes
+# Remove rows where 'runtimeMinutes' has missing values
 movies <- movies %>% filter(!is.na(movies$runtimeMinutes))
 
-# Seeing what kind of movies type we have 
+# Display the count of different types of titles (movies, shorts, TV shows, etc.)
 table(movies$titleType)
 
-# Filtering to only get the movies
+# Filter the dataset to only include rows where 'titleType' is "movie"
 movies <- movies %>% filter(movies$titleType == "movie")
 
-# Removing the column endYear, as it only contains NAs and originalTitle as it is not of use
+# Remove the 'endYear' column, as it only contains missing values (NAs)
+# Also remove 'originalTitle' column, as it's not needed for the analysis
 movies <- movies %>% 
   select(-endYear) %>%
   select(-originalTitle)
 
-# This boxplot shows how the runtime in Minutes of all the movies have been distributed.
-# This boxplot does not give a lot of insights because of this we decided to remove the outliers in the dataset.
+# Create a boxplot to visualize the distribution of 'runtimeMinutes' for all movies
+# Note: The boxplot will give an insights in the outliers 
 boxplot(movies$runtimeMinutes,
         main = "Boxplot of the runtime of movies",
         ylab = "Runtime in minutes")
 
-# Making cutoff for runtimeMinutes 
+# Calculate the standard deviation and mean for 'runtimeMinutes' to define an outlier cutoff 
 sd_runtimeMinutes <- sd(movies$runtimeMinutes)
 mean_runtimeMinutes <- mean(movies$runtimeMinutes)
 outliers_runtimeMinutes <- mean_runtimeMinutes + 3 * sd_runtimeMinutes
 
+# Filter the dataset to remove outliers, keeping only movies with runtime <= 3 standard deviations above the mean
 movies <- movies %>% filter(movies$runtimeMinutes <= outliers_runtimeMinutes)
 
-# removing genre == NA 
+# Check for missing values (NA) in the 'genres' column
 sum(is.na(movies$genres))
+
+# Remove rows where 'genres' is missing (NA)
 movies <- movies %>% filter(!is.na(movies$genres))
 
-# Writing data set to file 
-write_csv(movies, "movies.csv")
+# Write the cleaned dataset to the 'output' folder in the project structure
+write_csv(movies, "../../gen/data-preparation/temp/movies_cleaned.csv")
 
 
