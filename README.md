@@ -43,11 +43,40 @@ The following variables are being used in the data set:
 
 
 ## 4. Repository overview 
-
+```
+|-- data
+|-- gen
+   |-- analysis
+   |-- data-preparation
+        |-- temp
+        |-- output
+|-- src
+   |-- analysis
+        |-- analysis.R
+        |-- makefile
+   |-- data_preparation
+        |-- download_data.R
+        |-- merge_datasets.R
+        |-- data_cleaning.R
+        |-- data_exploration.R
+        |-- data_exploration.Rmd
+        |-- makefile
+|-- .gitignore
+|-- README.md
+|-- makefile
+```
 
 ## 5. Running instructions 
 
-### 5.1 Libraries 
+### 5.1 Software  
+Below all of the software that was used for creating this research will be listed. 
+
+1. **R and Rstudio** --> All of downloading of the data, the cleaning of the data, the preparation of the data, and the analysis was done using R and Rstudio. Refer to [Set up R and RStudio](https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)" for a instruction on how to install this. 
+2. **RMarkdown** --> RMarkdown was used to convert the code from RStudio into more comprehensible pdf documents, allowing for a seamless representation of the data preparation and analysis flow. Refer to the [RMarkdown Installation Guide](https://rmarkdown.rstudio.com/authoring_quick_tour.html#Installation)" for installment. 
+3. **make** -->  The tool make was used to be able to automate the workflow and ensure reproducibility of the prject. The guide to install make can be found at this page: [Make Installation Guide](https://tilburgsciencehub.com/building-blocks/configure-your-computer/automation-and-workflows/make/).
+4. **Pandoc** --> Finally, to make sure that your computer is able to compile the html document resulting from the RMarkdown source files, you should install Pandoc by following this guide: [Pandoc Installation Guide](https://pandoc.org/installing.html).
+
+### 5.2 Libraries 
 In R the following package were installed. If you did not download them yet, please install them, and use the install.packages() to do so. 
 ```
 library(tinytex)
@@ -55,13 +84,30 @@ library(tidyverse)
 library(ggplot2)
 ```
 
-### 5.2 Running the code 
+### 5.3 Running the code 
+
+#### Step-by-step using the makefile 
+To automatically run all source code files of which this project is composed, pleas follow these instructions:
+1. Fork this GitHub repository to your own GitHub account.
+2. Open the command line / terminal and run the following code:
+```
+git clone https://github.com/course-dprep/team-project-no-vs-code-team-2-dprep.git
+
+```
+3. Set your working directory to `team-project-no-vs-code-team-2-dprep` and run the following command:
+```
+make
+```
 
 
 ## 6. About 
-This project was conducted by a team of students of Tilburg University that follow the course Data Preparation and Workflow Management. The team member are: 
-- Trees van Ham 
-- Wouter Kole 
-- Sander Kessels
-- Georgios Mitroglou 
-- Carli Marban, email: c.marban@tilburguniversity.edu 
+This project was conducted by a team of students of Tilburg University that follow the course Data Preparation and Workflow Management. 
+
+| Author                                      | Contact                                     | 
+|---------------------------------------------|---------------------------------------------|
+| **Trees van Ham **                          | @tilburguniversity.edu                      |
+| **Wouter Kole**                             | w.kole@tilburguniversity.edu                |
+| **Sander Kessels**                          | s.kessels@tilburguniversity.edu             |
+| **Carli Marban**                            | c.marban@tilburguniversity.edu              |
+| **Georgios Mitroglou **                     | g.mitroglou@tilburguniversity.edu           |
+
