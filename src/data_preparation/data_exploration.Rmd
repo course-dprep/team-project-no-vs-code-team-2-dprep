@@ -1,7 +1,8 @@
 ---
 title: "data_exploration"
-output: html_document
+author: "team 2"
 date: "2024-09-25"
+output:html_document
 ---
 ```{r include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
@@ -56,7 +57,11 @@ ggplot(runtime_avg_rating, aes(x = Runtime_Category, y = Average_Rating)) +
 
 
 
-This bar plot shows the average rating for each run time, divided in segments of 30 minutes. As we can see the average rating is at its highest for movies with a run time of 0-30 minutes, then drops at its lowest average at a run time of 60-90 minutes and from there the average rating increases again for each new segment of run time.
+This bar plot shows the average IMDb rating of movies, grouped by run time categories. The categories range from films that are shorter than 30 minutes to those exceeding 180 minutes. As we can observe from looking at the graph the average rating is at its highest for movies with a run time of 0-30 minutes, then drops at its lowest average at a run time of 60-90 minutes after which it began to rise again for each new segment of run time. The pattern suggests that audiences might appreciate very short films, or films with much longer runtimes, more than those in the middle range. 
+
+Short films might receive higher ratings because they often focus on delivering impactful, concise narratives. Meanwhile, longer films may have more room to develop complex stories and characters, which could lead to higher viewer satisfaction. On the other hand, films in the 60-90 minute range might suffer from audience expectations of more depth or complexity that isn’t always delivered within that timeframe.
+
+While this is an interesting initial insight, it would be beneficial to further break down the data by genre. Different genres may have varying audience expectations for runtime. For example, action films might be expected to deliver quick, engaging experiences, while drama or fantasy genres may thrive with longer runtimes due to their need for character and world-building. By incorporating genre into the analysis, we can better understand whether certain genres are driving these trends, or if runtime preferences are more universal.
 
 ```{r include=FALSE}
 # genres (top)
@@ -77,15 +82,16 @@ top_5_genres_numbvotes <- number_votes %>%
 top_5_genres_numbvotes
 ```
 
-To see whether this difference in average rating differs per genre, we will first filter the data as such that we only use the 5 genres with the most amount of ratings on the IMDB website. These specific genres are:
+To see whether this difference in average rating differs per genre, we will first filter the data to include only the 5 genres with the most amount of ratings on the IMDb website. These specific genres are:
 
-| Genre | Amount of ratings
-|---------|---------|
+|Genre |Amount of ratings
+|------|---------|
 |Drama | 582,736,067
 |Action| 385,116,161	
 |Comedy| 346,572,006	
 |Adventure| 302,863,962
 |Crime| 222,378,249
+
 
 
 ```{r echo=FALSE}
@@ -146,7 +152,18 @@ ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating, fill = Genre
 
 ```
 
-This bar plot shows the average rating for each different run time for the five specific genres we chose. For all genres except Comedy the average rating is highest with a run time of 0-30 minutes, for Comedy the average rating is highest with a run time >180 minutes.
+This bar plot provides a breakdown of average IMDb ratings by run time categories for five genres: Action, Adventure, Comedy, Crime, and Drama. If we break down our observations by genre and look at the runtime category, we see that: 
+
+0-30 minute category: Comedy films have slightly lower ratings compared to other genres, while the rest of the genres, including Action, Adventure, Drama, and Crime, show relatively high ratings in this short runtime category.
+
+30-60 minute category: All genres experience a slight drop in ratings here, particularly Action and Adventure. This suggests that films with short-to-moderate runtimes may face challenges in delivering fully engaging stories.
+
+60-90 minute category: Ratings across most genres continue to stay somewhat lower, which might indicate that this runtime isn’t the ideal sweet spot for audience satisfaction across genres.
+
+90-180 minute categories: For longer runtimes (90-180 minutes), Drama and Adventure movies generally maintain consistent ratings. Action and Crime films also show an upward trend as runtime increases, perhaps benefiting from more time to develop action sequences or suspense.
+
+Over 180 minutes: All genres tend to rebound with higher average ratings, possibly due to the epic scale and depth longer films often provide.
+
 
 
 
