@@ -2,7 +2,9 @@
 title: "data_exploration"
 author: "team 2"
 date: "2024-09-25"
-output:html_document
+output:
+  html_document:
+    output_dir: "../../gen/data-preparation/output/"
 ---
 ```{r include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
@@ -163,11 +165,6 @@ This bar plot provides a breakdown of average IMDb ratings by run time categorie
 90-180 minute categories: For longer runtimes (90-180 minutes), Drama and Adventure movies generally maintain consistent ratings. Action and Crime films also show an upward trend as runtime increases, perhaps benefiting from more time to develop action sequences or suspense.
 
 Over 180 minutes: All genres tend to rebound with higher average ratings, possibly due to the epic scale and depth longer films often provide.
-
-
-
-
-
 
 
 
