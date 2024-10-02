@@ -37,7 +37,10 @@ The following variables are being used in the data set:
 | genres   | The genre of the movie   |   character
 | averageRating   | The average rating of the movie on a scale of 1-10   |  numeric
 | numVotes   | The number of total ratings of the movie   |  numeric
+| DDrama, DAction, DComedy, DAdventure, DCrime, etc.      | Dummy variable for genre    |   logical
+| 0 - 30 min, 30 - 60 min, 60 - 90 min, etc.    | Dummy variable for the duration of the movie   | logical      
 
+## 3. Data exploration 
 
 ## 3. Results and interpretation 
 
@@ -82,6 +85,7 @@ In R the following package were installed. If you did not download them yet, ple
 library(tinytex)
 library(tidyverse)
 library(ggplot2)
+library(rmarkdown)
 ```
 
 ### 5.3 Running the code 
