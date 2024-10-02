@@ -6,7 +6,7 @@ This project explores if there is a correlation between the runtime of a movie a
 ## 1. Introduction
 
 ### 1.1 Research Motivation 
-The research question — exploring whether there is a correlation between movie runtime and IMDb rating with a specific focus on genre — is of significant importance. This exploration delves into understanding how different genres come with distinct audience expectations. Filmmakers often face tough decisions about how long their films should be. A longer runtime allows for more detailed storytelling, character development, and complex narratives, but it may also test the audience's patience. On the other hand, shorter films might be more accessible and appealing to time-constrained viewers but could risk feeling rushed or underdeveloped. Hence, deciding on the runtime of the movie is a difficult task for a movie maker, and any insight in this can be valuable. 
+The research question — exploring whether there is a correlation between movie runtime and IMDb rating with a specific focus on genre — is of significant importance. This exploration delves into understanding how different genres come with distinct audience expectations. Filmmakers often face tough decisions about how long their films should be (Sharf, 2022). A longer runtime allows for more detailed storytelling, character development, and complex narratives, but it may also test the audience's patience. On the other hand, shorter films might be more accessible and appealing to time-constrained viewers but could risk feeling rushed or underdeveloped. Hence, deciding on the runtime of the movie is a difficult task for a movie maker, and any insight in this can be valuable. 
 
 To expand on why the correlation between movie runtime and IMDb rating might differ by genre, consider how different genres have unique storytelling conventions and audience expectations. For example, dramas or fantasy films often require longer runtimes to build complex worlds, develop multi-layered characters, and create intricate plots. In contrast, comedies or action films tend to have shorter runtimes, focusing on pacing and delivering quick entertainment. Therefore, what works for one genre may not work for another, and the audience's tolerance for length can vary depending on these genre conventions.
 
@@ -114,4 +114,8 @@ This project was conducted by a team of students of Tilburg University that foll
 | **Sander Kessels**                          | s.kessels@tilburguniversity.edu             |
 | **Carli Marban**                            | c.marban@tilburguniversity.edu              |
 | **Georgios Mitroglou**                     | g.mitroglou@tilburguniversity.edu           |
+
+### 7. References 
+
+Sharf, Z. (2022, February 6). Why movies are getting longer: The answer goes beyond the MCU and Oscar bait. CNN. https://edition.cnn.com/2022/02/06/entertainment/movie-runtimes-longer-mcu-batman-oscar-bait-cec/index.html
 
