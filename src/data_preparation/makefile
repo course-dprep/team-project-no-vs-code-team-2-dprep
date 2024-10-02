@@ -18,8 +18,8 @@ $(OUTPUT)/movies.csv: data_exploration.R $(TEMP)/movies_cleaned.csv
 	R -e "dir.create('../../gen/data-preparation/output', recursive = TRUE)"
 	R --vanilla < data_exploration.R
 
-$(OUTPUT)/data_exploration.html: data_exploration.Rmd
-	Rscript -e 'rmarkdown::render("data_exploration.Rmd")'
+$(OUTPUT)/data_exploration.html: $(TEMP)/data_exploration.Rmd $(OUTPUT)/movies.csv render.R 
+	Rscript -e 'rmarkdown::render("src/data_preparation/data_exploration.Rmd")'
 
 clean:
 	R -e "unlink('$(DATA)', recursive = TRUE)"
