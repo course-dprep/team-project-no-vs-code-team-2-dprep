@@ -4,6 +4,7 @@ author: "team 2"
 date: "2024-09-25"
 output:
   html_document:
+    self_contained: TRUE
     output_dir: "../../gen/data-preparation/output/"
 ---
 ```{r include=FALSE}
