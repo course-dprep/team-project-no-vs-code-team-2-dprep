@@ -105,9 +105,9 @@ This project was conducted by a team of students of Tilburg University that foll
 
 | Author                                      | Contact                                     | 
 |---------------------------------------------|---------------------------------------------|
-| **Trees van Ham **                          | @tilburguniversity.edu                      |
+| **Trees van Ham**                          | t.j.o.vanham@tilburguniversity.edu                      |
 | **Wouter Kole**                             | w.kole@tilburguniversity.edu                |
 | **Sander Kessels**                          | s.kessels@tilburguniversity.edu             |
 | **Carli Marban**                            | c.marban@tilburguniversity.edu              |
-| **Georgios Mitroglou **                     | g.mitroglou@tilburguniversity.edu           |
+| **Georgios Mitroglou**                     | g.mitroglou@tilburguniversity.edu           |
 
