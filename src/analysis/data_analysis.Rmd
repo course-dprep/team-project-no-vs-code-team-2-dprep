@@ -17,6 +17,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 #Load packages
 library(tidyverse)
 ```
+
 ```{r include=FALSE}
 # Importing the data set 
 movies <- read_csv("../../gen/data-preparation/output/movies.csv")
@@ -25,26 +26,10 @@ movies <- read_csv("../../gen/data-preparation/output/movies.csv")
 For our analysis, we will first take a look at a simple regression model where the dependent variable averageRating is regressed with runtimeMinutes as the only independent variable:
 
 
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-
-
-## Including Plots
-
-You can also embed plots, for example:
-
 ```{r echo=FALSE}
 lm1 <- lm(averageRating ~ runtimeMinutes, movies)
 summary(lm1)
 ```
-
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 The linear regression shows that runtimeMinutes has a positive effect on averageRating, albeit very small. A movie that increases 1 minute in length will on average increase with 0.003 in rating. Since the model has a F-value of 705.5 and a corresponding p-value of <2e-16, this effect is significant and we can conclude that longer movies will on average receive a higher rating. 
 
@@ -71,6 +56,7 @@ lmAction <- lm(averageRating ~ DAction*`30-60 min` + DAction*`60-90 min` + DActi
 summary(lmAction)
 ```
 The regression model for movies with the action genre shows that action movies will also receive the highest average rating when the run time is between 0 and 30 minutes. From there the average will decrease until 60-90 minutes, slowly increase again until 120-150 minutes and then start decreasing again until it reaches its lowest average at a run time larger than 180 minutes. However, none of the individual dummies have a p-value smaller than 0.05 so we cannot draw any significant conclusions.
+
 Comedy regression:
 ```{r echo=FALSE}
 lmComedy <- lm(averageRating ~ DComedy*`30-60 min` + DComedy*`60-90 min` + DComedy*`90-120 min` + DComedy*`120-150 min` + DComedy*`150-180 min` + DComedy*`>180 min`, movies)
