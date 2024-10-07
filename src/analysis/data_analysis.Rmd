@@ -8,6 +8,7 @@ output:
     output_dir: "../../gen/data-analysis/output/"
 ---
 
+
 ```{r include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 ```
@@ -24,10 +25,12 @@ movies <- read_csv("../../gen/data-preparation/output/movies.csv")
 
 For our analysis, we will first take a look at a simple regression model where the dependent variable averageRating is regressed with runtimeMinutes as the only independent variable:
 
+
 ```{r echo=FALSE}
 lm1 <- lm(averageRating ~ runtimeMinutes, movies)
 summary(lm1)
 ```
+
 The linear regression shows that runtimeMinutes has a positive effect on averageRating, albeit very small. A movie that increases 1 minute in length will on average increase with 0.003 in rating. Since the model has a F-value of 705.5 and a corresponding p-value of <2e-16, this effect is significant and we can conclude that longer movies will on average receive a higher rating. 
 
 The problem with this conclusion however, is that this model assumes that the default movie length is zero minutes which is obviously never the case. To tackle this problem we will create another regression which will make use of the earlier created dummy variables that divide the runtime in minutes into blocks of 30 minutes each. The dummy variable '0-30 min' will not be included in the regression model and therefore be used as standard to avoid strict multicollinearity.
@@ -76,3 +79,4 @@ lmCrime <- lm(averageRating ~ DCrime*`30-60 min` + DCrime*`60-90 min` + DCrime*`
 summary(lmCrime)
 ```
 Finally, the regression model for movies with the crime genre shows that crime movies will also peak in average at a run time of 0 to 30 minutes. The average reaches its lowest at 30-60 minutes, increases again until 120 to 150 minutes and then starts decreasing again. Like the other genre models, the individual dummies all have p-values smaller than 0.05 so we can again not draw any significant conclusions.
+
