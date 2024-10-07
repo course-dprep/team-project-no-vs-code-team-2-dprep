@@ -1,4 +1,4 @@
-DATA = ../../gen/data_preparation/output
+DATA = ../../gen/data-preparation/output
 OUTPUT = ../../gen/data-analysis/output
 
 all: $(OUTPUT)/data_analysis.html
