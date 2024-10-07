@@ -20,7 +20,7 @@ Is there a correlation between a movie's run time and its IMDb rating, with a fo
 ## 2. Method
 
 ### 2.1 Research Method 
-Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with  (...) movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between runtime and audience satisfaction but also offers data-driven guidance for filmmakers.
+Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with 279457 movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between runtime and audience satisfaction but also offers data-driven guidance for filmmakers.
 
 ### 2.2 Variables 
 The following variables are being used in the data set:  
@@ -49,13 +49,14 @@ The following variables are being used in the data set:
 ```
 |-- data
 |-- gen
-   |-- analysis
+   |-- data-analysis
+        |-- output       
    |-- data-preparation
         |-- temp
         |-- output
 |-- src
    |-- analysis
-        |-- analysis.R
+        |-- data_analysis.Rmd
         |-- makefile
    |-- data_preparation
         |-- download_data.R
@@ -64,6 +65,8 @@ The following variables are being used in the data set:
         |-- data_exploration.R
         |-- data_exploration.Rmd
         |-- makefile
+|-- paper
+   |-- Final_report.Rmd
 |-- .gitignore
 |-- README.md
 |-- makefile
@@ -110,7 +113,7 @@ This project was conducted by a team of students of Tilburg University that foll
 | Author                                      | Contact                                     | 
 |---------------------------------------------|---------------------------------------------|
 | **Trees van Ham**                          | t.j.o.vanham@tilburguniversity.edu                      |
-| **Wouter Kole**                             | w.kole@tilburguniversity.edu                |
+| **Wouter Kole**                             | w.p.kole@tilburguniversity.edu                |
 | **Sander Kessels**                          | s.kessels@tilburguniversity.edu             |
 | **Carli Marban**                            | c.marban@tilburguniversity.edu              |
 | **Georgios Mitroglou**                     | g.mitroglou@tilburguniversity.edu           |
