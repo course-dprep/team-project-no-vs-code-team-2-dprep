@@ -23,7 +23,8 @@ library(tidyverse)
 movies <- read_csv("../../gen/data-preparation/output/movies.csv")
 ```
 
-For our analysis, we will first take a look at a simple regression model where the dependent variable averageRating is regressed with runtimeMinutes as the only independent variable:
+### Regressing the rating against the runtime 
+For our analysis, we will first take a look at a simple regression model where the dependent variable *averageRating* is regressed with *runtimeMinutes* as the only independent variable:
 
 
 ```{r echo=FALSE}
@@ -31,7 +32,9 @@ lm1 <- lm(averageRating ~ runtimeMinutes, movies)
 summary(lm1)
 ```
 
-The linear regression shows that runtimeMinutes has a positive effect on averageRating, albeit very small. A movie that increases 1 minute in length will on average increase with 0.003 in rating. Since the model has a F-value of 705.5 and a corresponding p-value of <2e-16, this effect is significant and we can conclude that longer movies will on average receive a higher rating. 
+The linear regression shows that *runtimeMinutes* has a positive effect on *averageRating*, albeit very small. A movie that increases 1 minute in length will on average increase with 0.003 in rating. Since the model has a F-value of 705.5 and a corresponding p-value of <2e-16, this effect is significant and we can conclude that longer movies will on average receive a higher rating. 
+
+### Regressing the rating against the runtime dummies
 
 The problem with this conclusion however, is that this model assumes that the default movie length is zero minutes which is obviously never the case. To tackle this problem we will create another regression which will make use of the earlier created dummy variables that divide the runtime in minutes into blocks of 30 minutes each. The dummy variable '0-30 min' will not be included in the regression model and therefore be used as standard to avoid strict multicollinearity.
 
@@ -39,25 +42,37 @@ The problem with this conclusion however, is that this model assumes that the de
 lm2<- lm(averageRating ~ `30-60 min` + `60-90 min` + `90-120 min` + `120-150 min` + `150-180 min` + `>180 min`, movies)
 summary(lm2)
 ```
-This model shows us that a movie with a run time between 0 and 30 minutes will receive an average rating of 7.34 but in contrast to our first model, the average rating will not increase when the length of the movie also increases. A movie with a run time between 30 and 60 minutes will on average receive a rating of 6.66, a movie with a run time between 60 and 90 minutes will on average receive a rating of 6.02, a movie with a run time between 90 and 120 minutes will on average receive a rating of 6.13, a movie with a run time between 120 and 150 minutes will on average receive a rating of 6.50, a movie with a run time between 150 and 180 minutes will on average receive a rating of 6.64 and a movie with a run time larger than 180 minutes will on average receive a rating of 6.99. Since all of the dummies have a p-value smaller than 0.05, they are all individually significant. The model has a F-value of 1154 with a corresponding p-value of <2.2e-16. Therefore we can draw the conclusion that a movie will have its highest average rating when the run time is between 0 and 30 minutes, from there on the rating will decrease until it reaches its lowest point at a run time between 60 and 90 minutes and from that point it will start increasing again. 
+This model shows us that a movie with a run time between 0 and 30 minutes will receive an average rating of 7.34 but in contrast to our first model, the average rating will not increase when the length of the movie also increases. 
+
+- A movie with a run time between 30 and 60 minutes will on average receive a rating of 6.66. 
+- A movie with a run time between 60 and 90 minutes will on average receive a rating of 6.02
+- A movie with a run time between 90 and 120 minutes will on average receive a rating of 6.13
+- A movie with a run time between 120 and 150 minutes will on average receive a rating of 6.50
+- A movie with a run time between 150 and 180 minutes will on average receive a rating of 6.64 
+- A movie with a run time larger than 180 minutes will on average receive a rating of 6.99. 
+
+Since all of the dummies have a p-value smaller than 0.05, they are all individually significant. The model has a F-value of 1154 with a corresponding p-value of <2.2e-16. Therefore we can draw the conclusion that a movie will have its highest average rating when the run time is between 0 and 30 minutes, from there on the rating will decrease until it reaches its lowest point at a run time between 60 and 90 minutes and from that point it will start increasing again. 
 
 Because we want to check whether the rating will differ for different genres, we will also take a look at the regression for the individual genres drama, action, comedy, adventure and crime. For all of these different genres we will again use the dummy variable '0-30 min' as the standard to avoid strict multicollinearity.
 
-Drama regression:
+#### Regressing for the drama dummy 
+
 ```{r echo=FALSE}
 lmDrama <- lm(averageRating ~ DDrama*`30-60 min` + DDrama*`60-90 min` + DDrama*`90-120 min` + DDrama*`120-150 min` + DDrama*`150-180 min` + DDrama*`>180 min`, movies)
 summary(lmDrama)
 ```
 The regression model for movies with the drama genre shows that drama movies will on average receive higher ratings than non-drama movies. Like in the previous model, drama movies will also have their highest average when the run time is between 0 and 30 minutes. From there the pattern changes in comparison to movies in general: their lowest average is at 30 to 60 minutes and from there the average will increase again until 90 to 120 minutes from where it slowly starts decreasing again. However, since the only dummy with a p-value smaller than 0.05 is 'DDrama:`30-60 min`TRUE', we cannot draw any significant conclusions for movies with the drama genre.
 
-Action regression:
+#### Regressing for the Action dummy 
+
 ```{r echo=FALSE}
 lmAction <- lm(averageRating ~ DAction*`30-60 min` + DAction*`60-90 min` + DAction*`90-120 min` + DAction*`120-150 min` + DAction*`150-180 min` + DAction*`>180 min`, movies)
 summary(lmAction)
 ```
 The regression model for movies with the action genre shows that action movies will also receive the highest average rating when the run time is between 0 and 30 minutes. From there the average will decrease until 60-90 minutes, slowly increase again until 120-150 minutes and then start decreasing again until it reaches its lowest average at a run time larger than 180 minutes. However, none of the individual dummies have a p-value smaller than 0.05 so we cannot draw any significant conclusions.
 
-Comedy regression:
+#### Regressing for the Comedy dummy 
+
 ```{r echo=FALSE}
 lmComedy <- lm(averageRating ~ DComedy*`30-60 min` + DComedy*`60-90 min` + DComedy*`90-120 min` + DComedy*`120-150 min` + DComedy*`150-180 min` + DComedy*`>180 min`, movies)
 summary(lmComedy)
@@ -65,7 +80,8 @@ summary(lmComedy)
 ```
 Unlike any of the models shown before, the regression model for movies with the comedy genre shows that comedy movies will receive their lowest average rating when the run time is between 0 and 30 minutes. From there the rating starts increasing at every new dummy for run time except 120-150 minutes, and will receive its highest average rating at a run time larger than 180 minutes. However, again none of the individual dummies are significant and thus, we cannot draw any significant conclusions.
 
-Adventure regression:
+#### Regressing for the Adventure dummy 
+
 ```{r echo=FALSE}
 lmAdventure <- lm(averageRating ~ DAdventure*`30-60 min` + DAdventure*`60-90 min` + DAdventure*`90-120 min` + DAdventure*`120-150 min` + DAdventure*`150-180 min` + DAdventure*`>180 min`, movies)
 summary(lmAdventure)
@@ -73,10 +89,10 @@ summary(lmAdventure)
 ```
 The regression model for movies with the adventure genre shows that adventure movies will receive their highest average at a run time between 0 and 30 minutes. The rating decreases at 30 to 60 minutes, starts increasing again until 120-150 minutes and then decreases again until it reaches its lowest average at a run time larger than 180 minutes. Again, none of the dummies have a p-value lower than 0.05, so we cannot draw any significant conclusions from this model.
 
-Crime regression:
+#### Regressing for the Crime dummy 
+
 ```{r echo=FALSE}
 lmCrime <- lm(averageRating ~ DCrime*`30-60 min` + DCrime*`60-90 min` + DCrime*`90-120 min` + DCrime*`120-150 min` + DCrime*`150-180 min` + DCrime*`>180 min`, movies)
 summary(lmCrime)
 ```
 Finally, the regression model for movies with the crime genre shows that crime movies will also peak in average at a run time of 0 to 30 minutes. The average reaches its lowest at 30-60 minutes, increases again until 120 to 150 minutes and then starts decreasing again. Like the other genre models, the individual dummies all have p-values smaller than 0.05 so we can again not draw any significant conclusions.
-
