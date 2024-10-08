@@ -6,6 +6,7 @@ data-preparation:
 data-analysis:
 	make -C src/analysis
 
+
 paper: 
 	make -C src/paper
 
@@ -15,3 +16,5 @@ clean:
 	R -e "unlink('$(DATA)', recursive = TRUE)"
 	R -e "unlink('$(TEMP)', recursive = TRUE)"
 	R -e "unlink('$(OUTPUT)', recursive = TRUE)"
+
+
