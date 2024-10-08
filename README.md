@@ -37,15 +37,15 @@ The following variables are being used in the data set:
 | genres   | The genre of the movie   |   character
 | averageRating   | The average rating of the movie on a scale of 1-10   |  numeric
 | numVotes   | The number of total ratings of the movie   |  numeric
-| DDrama, DAction, DComedy, DAdventure, DCrime, etc.      | Dummy variable for genre    |   logical
-| 0 - 30 min, 30 - 60 min, 60 - 90 min, etc.    | Dummy variable for the duration of the movie   | logical      
+| DDrama, DAction, DComedy, DAdventure, DCrime, etc.      | Dummy variables for genre    |   logical
+| 0 - 30 min, 30 - 60 min, 60 - 90 min, etc.    | Dummy variables for the duration of the movie   | logical      
 
 ## 3. Data exploration 
 
-## 3. Results and interpretation 
+## 4. Results and interpretation 
 
 
-## 4. Repository overview 
+## 5. Repository overview 
 ```
 |-- data
 |-- gen
@@ -53,6 +53,8 @@ The following variables are being used in the data set:
         |-- output       
    |-- data-preparation
         |-- temp
+        |-- output
+   |-- paper
         |-- output
 |-- src
    |-- analysis
@@ -65,16 +67,16 @@ The following variables are being used in the data set:
         |-- data_exploration.R
         |-- data_exploration.Rmd
         |-- makefile
-|-- paper
-   |-- Final_report.Rmd
+   |-- paper
+        |-- Final_report.Rmd
 |-- .gitignore
 |-- README.md
 |-- makefile
 ```
 
-## 5. Running instructions 
+## 6. Running instructions 
 
-### 5.1 Software  
+### 6.1 Software  
 Below all of the software that was used for creating this research will be listed. 
 
 1. **R and Rstudio** --> All of downloading of the data, the cleaning of the data, the preparation of the data, and the analysis was done using R and Rstudio. Refer to [Set up R and RStudio](https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)" for a instruction on how to install this. 
@@ -82,16 +84,15 @@ Below all of the software that was used for creating this research will be liste
 3. **make** -->  The tool make was used to be able to automate the workflow and ensure reproducibility of the prject. The guide to install make can be found at this page: [Make Installation Guide](https://tilburgsciencehub.com/building-blocks/configure-your-computer/automation-and-workflows/make/).
 4. **Pandoc** --> Finally, to make sure that your computer is able to compile the html document resulting from the RMarkdown source files, you should install Pandoc by following this guide: [Pandoc Installation Guide](https://pandoc.org/installing.html).
 
-### 5.2 Libraries 
+### 6.2 Libraries 
 In R the following package were installed. If you did not download them yet, please install them, and use the install.packages() to do so. 
 ```
 library(tinytex)
 library(tidyverse)
-library(ggplot2)
 library(rmarkdown)
 ```
 
-### 5.3 Running the code 
+### 6.3 Running the code 
 
 #### Step-by-step using the makefile 
 To automatically run all source code files of which this project is composed, pleas follow these instructions:
@@ -107,18 +108,18 @@ make
 ```
 
 
-## 6. About 
+## 7. About 
 This project was conducted by a team of students of Tilburg University that follow the course Data Preparation and Workflow Management. 
 
 | Author                                      | Contact                                     | 
 |---------------------------------------------|---------------------------------------------|
 | **Trees van Ham**                          | t.j.o.vanham@tilburguniversity.edu                      |
 | **Wouter Kole**                             | w.p.kole@tilburguniversity.edu                |
-| **Sander Kessels**                          | s.kessels@tilburguniversity.edu             |
+| **Sander Kessels**                          | s.t.p.kessels@tilburguniversity.edu             |
 | **Carli Marban**                            | c.marban@tilburguniversity.edu              |
 | **Georgios Mitroglou**                     | g.mitroglou@tilburguniversity.edu           |
 
-### 7. References 
+### 8. References 
 
 Sharf, Z. (2022, February 6). Why movies are getting longer: The answer goes beyond the MCU and Oscar bait. CNN. https://edition.cnn.com/2022/02/06/entertainment/movie-runtimes-longer-mcu-batman-oscar-bait-cec/index.html
 
