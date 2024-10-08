@@ -5,3 +5,8 @@ data-preparation:
 
 data-analysis:
 	make -C src/analysis
+
+clean:
+	R -e "unlink('*.pdf')"
+	R -e "unlink('*.html')"
+
