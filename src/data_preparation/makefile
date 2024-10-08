@@ -21,10 +21,5 @@ $(OUTPUT)/movies.csv: data_exploration.R $(TEMP)/movies_cleaned.csv
 $(OUTPUT)/data_exploration.html: data_exploration.Rmd $(OUTPUT)/movies.csv render.R 
 	Rscript -e 'rmarkdown::render("data_exploration.Rmd", output_dir = "$(OUTPUT)")'
 
-clean:
-	R -e "unlink('*.pdf')"
-	R -e "unlink('*.html')"
-	R -e "unlink('$(DATA)', recursive = TRUE)"
-	R -e "unlink('$(TEMP)', recursive = TRUE)"
-	R -e "unlink('$(OUTPUT)', recursive = TRUE)"
+
 
