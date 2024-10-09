@@ -11,16 +11,16 @@ The research question — exploring whether there is a correlation between movie
 To expand on why the correlation between movie runtime and IMDb rating might differ by genre, consider how different genres have unique storytelling conventions and audience expectations. For example, dramas or fantasy films often require longer runtimes to build complex worlds, develop multi-layered characters, and create intricate plots. In contrast, comedies or action films tend to have shorter runtimes, focusing on pacing and delivering quick entertainment. According, to the Guardian the average runtime for a fantasy movie is 2 hours but the average runtime for an action movie is 1 hour and 40 minutes (Mumford, 2024).Therefore, what works for one genre may not work for another, and the audience's tolerance for length can vary depending on these genre conventions.
 
 ### 1.2 Relevance 
-By examining how run time impacts ratings within specific genres, this research can provide valuable insights into audience preferences. Directors can benefit from understanding whether a tight, concise run time is more effective for genres like for example comedy, or if extending the run time enhances character development in dramas. Not only is this research relevant to filmmakers, but also academic stakeholders can gain insights from this. For example, it can give insights to media psychological researches on media consumption with regards to attention span. 
+By examining how runtime impacts ratings within specific genres, this research can provide valuable insights into audience preferences. Directors can benefit from understanding whether a tight, concise runtime is more effective for genres like for example comedy, or if extending the runtime enhances character development in dramas. Not only is this research relevant to filmmakers, but also academic stakeholders can gain insights from this. For example, it can give insights to media psychological researches on media consumption with regards to attention span. 
 
 ### 1.3 Research Question 
-Is there a correlation between a movie's run time and its IMDb rating, with a focus on genre?
+Is there a correlation between a movie's runtime and its IMDb rating, with a focus on genre?
 
 
 ## 2. Method
 
 ### 2.1 Research Method 
-Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with 279457 movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between runtime and audience satisfaction but also offers data-driven guidance for filmmakers.
+Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with 279,563 movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between runtime and audience satisfaction but also offers data-driven guidance for filmmakers.
 
 ### 2.2 Variables 
 The following variables are being used in the data set:  
@@ -31,9 +31,8 @@ The following variables are being used in the data set:
 | tconst   | The movie ID   | numeric
 | titleType   | The title type, in the dataset only movies   | character
 | primaryTitle   | The title of the movie   |  character
-| isAdult   | Dummy variable stating if it is a adult movie   | logical  
 | startYear   | When the movie first launched   |  date
-| runtimeMinutes   | The total run time of the movie in minutes   |  numeric
+| runtimeMinutes   | The total runtime of the movie in minutes   |  numeric
 | genres   | The genre of the movie   |   character
 | averageRating   | The average rating of the movie on a scale of 1-10   |  numeric
 | numVotes   | The number of total ratings of the movie   |  numeric
@@ -41,9 +40,10 @@ The following variables are being used in the data set:
 | 0 - 30 min, 30 - 60 min, 60 - 90 min, etc.    | Dummy variables for the duration of the movie   | logical      
 
 ## 3. Data exploration 
+To get a better overview of the data we created dummy variables for every singular genre and for the runtime of each movie divided in blocks of 30 minutes up until >180 minutes. Visualizing the data with plots showed us that movies with a runtime of 0-30 minutes performed the highest on average, followed by movies with a runtime of >180 minutes.
 
 ## 4. Results and interpretation 
-
+Regressing the data gave us the same results as the visualization: movies with a runtime of 0-30 minutes got the highest rating on average while movies with a runtime of 60-90 minutes received the lowest rating on average. Focusing on the top 5 genres, drama, comedy, action, adventure and crime, gave us no interesting insights as all the results were insignificant.
 
 ## 5. Repository overview 
 ```
@@ -54,7 +54,7 @@ The following variables are being used in the data set:
    |-- data-preparation
         |-- temp
         |-- output
-   |-- paper
+   |-- final-report
         |-- output
 |-- src
    |-- analysis
@@ -69,6 +69,7 @@ The following variables are being used in the data set:
         |-- makefile
    |-- paper
         |-- Final_report.Rmd
+        |-- makefile
 |-- .gitignore
 |-- README.md
 |-- makefile
