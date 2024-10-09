@@ -18,8 +18,6 @@ $(OUTPUT)/movies.csv: data_exploration.R $(TEMP)/movies_cleaned.csv
 	R -e "dir.create('../../gen/data-preparation/output', recursive = TRUE)"
 	R --vanilla < data_exploration.R
 
-$(OUTPUT)/data_exploration.html: data_exploration.Rmd $(OUTPUT)/movies.csv render.R 
+$(OUTPUT)/data_exploration.html: data_exploration.Rmd $(OUTPUT)/movies.csv 
 	Rscript -e 'rmarkdown::render("data_exploration.Rmd", output_dir = "$(OUTPUT)")'
-
-
 
