@@ -88,15 +88,15 @@ Below all of the software that was used for creating this research will be liste
 ### 6.2 Libraries 
 In R the following package were installed. If you did not download them yet, please install them, and use the install.packages() to do so. 
 ```
-library(tinytex)
 library(tidyverse)
+library(tinytex)
 library(rmarkdown)
 ```
 
 ### 6.3 Running the code 
 
 #### Step-by-step using the makefile 
-To automatically run all source code files of which this project is composed, pleas follow these instructions:
+To automatically run all source code files of which this project is composed, please follow these instructions:
 1. Fork this GitHub repository to your own GitHub account.
 2. Open the command line / terminal and run the following code:
 ```
@@ -106,11 +106,11 @@ git clone https://github.com/course-dprep/team-project-no-vs-code-team-2-dprep.g
 3. Set your working directory to `team-project-no-vs-code-team-2-dprep` and run the following command:
 ```
 make
+
 ```
 
-
 ## 7. About 
-This project was conducted by a team of students of Tilburg University that follow the course Data Preparation and Workflow Management. 
+This project was conducted by a team of students of Tilburg University that follow the course Data Preparation and Workflow Management instructed by Hannes Datta. 
 
 | Author                                      | Contact                                     | 
 |---------------------------------------------|---------------------------------------------|
