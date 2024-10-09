@@ -35,16 +35,16 @@ The research question — exploring whether there is a correlation between movie
 To expand on why the correlation between movie runtime and IMDb rating might differ by genre, consider how different genres have unique storytelling conventions and audience expectations. For example, dramas or fantasy films often require longer runtimes to build complex worlds, develop multi-layered characters, and create intricate plots. In contrast, comedies or action films tend to have shorter runtimes, focusing on pacing and delivering quick entertainment. According, to the Guardian the average runtime for a fantasy movie is 2 hours but the average runtime for an action movie is 1 hour and 40 minutes (Mumford, 2024). Therefore, what works for one genre may not work for another, and the audience's tolerance for length can vary depending on these genre conventions.
 
 ### 1.2 Relevance 
-By examining how run time impacts ratings within specific genres, this research can provide valuable insights into audience preferences. Directors can benefit from understanding whether a tight, concise run time is more effective for genres like for example comedy, or if extending the run time enhances character development in dramas. Not only is this research relevant to filmmakers, but also academic stakeholders can gain insights from this. For example, it can give insights to media psychological researches on media consumption with regards to attention span. 
+By examining how runtime impacts ratings within specific genres, this research can provide valuable insights into audience preferences. Directors can benefit from understanding whether a tight, concise runtime is more effective for genres like for example comedy, or if extending the runtime enhances character development in dramas. Not only is this research relevant to filmmakers, but also academic stakeholders can gain insights from this. For example, it can give insights to media psychological researches on media consumption with regards to attention span. 
 
 ### 1.3 Research Question 
-Is there a correlation between a movie's run time and its IMDb rating, with a focus on genre?
+Is there a correlation between a movie's runtime and its IMDb rating, with a focus on genre?
 
 
 ## 2. Method
 
 ### 2.1 Research Method 
-Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with 279.303 movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between runtime and audience satisfaction but also offers data-driven guidance for filmmakers.
+Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with 279.563 movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between run stime and audience satisfaction but also offers data-driven guidance for filmmakers.
 
 ### 2.2 Variables 
 The following variables are being used in the data set:  
@@ -57,7 +57,7 @@ The following variables are being used in the data set:
 | primaryTitle   | The title of the movie   |  character
 | isAdult   | Dummy variable stating if it is a adult movie   | logical  
 | startYear   | When the movie first launched   |  date
-| runtimeMinutes   | The total run time of the movie in minutes   |  numeric
+| runtimeMinutes   | The total runtime of the movie in minutes   |  numeric
 | genres   | The genre of the movie   |   character
 | averageRating   | The average rating of the movie on a scale of 1-10   |  numeric
 | numVotes    | The number of total ratings of the movie   |  numeric
@@ -67,7 +67,7 @@ The following variables are being used in the data set:
 ## 3. Data exploration 
 
 ### 3.1 Runtime of a movie and the IMDb rating
-To see whether there is a correlation between the run time of a movie and its IMDb rating we can first take a look at the following plot:
+To see whether there is a correlation between the runtime of a movie and its IMDb rating we can first take a look at the following plot:
 
 ```{r echo=FALSE}
 # runtime x rating 
@@ -94,17 +94,17 @@ runtime_avg_rating$Runtime_Category <- factor(runtime_avg_rating$Runtime_Categor
 # Plotting the data
 ggplot(runtime_avg_rating, aes(x = Runtime_Category, y = Average_Rating)) +
   geom_bar(stat = "identity", fill = "skyblue") +
-  labs(title = "Average IMDb Rating by Run Time",
-       x = "Run Time",
+  labs(title = "Average IMDb Rating by Runtime",
+       x = "Runtime",
        y = "Average IMDb Rating") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-Figure 1: Average IMDb Rating by Run Time
+Figure 1: Average IMDb Rating by Runtime
 
 
-This bar plot shows the average IMDb rating of movies, grouped by run time categories. The categories range from films that are shorter than 30 minutes to those exceeding 180 minutes. As we can observe from looking at the graph the average rating is at its highest for movies with a run time of 0-30 minutes, then drops at its lowest average at a run time of 60-90 minutes after which it began to rise again for each new segment of run time. The pattern suggests that audiences might appreciate very short films, or films with much longer runtimes, more than those in the middle range. 
+This bar plot shows the average IMDb rating of movies, grouped by runtime categories. The categories range from films that are shorter than 30 minutes to those exceeding 180 minutes. As we can observe from looking at the graph the average rating is at its highest for movies with a runtime of 0-30 minutes, then drops at its lowest average at a runtime of 60-90 minutes after which it began to rise again for each new segment of runtime. The pattern suggests that audiences might appreciate very short films, or films with much longer runtimes, more than those in the middle range. 
 
 Short films might receive higher ratings because they often focus on delivering impactful, concise narratives. Meanwhile, longer films may have more room to develop complex stories and characters, which could lead to higher viewer satisfaction. On the other hand, films in the 60-90 minute range might suffer from audience expectations of more depth or complexity that isn’t always delivered within that timeframe.
 
@@ -140,8 +140,8 @@ To see whether this difference in average rating differs per genre, we will firs
 |Adventure| 302,863,962
 |Crime| 222,378,249
 
-### 3.3 Breakdown of average IMDb ratings by run time categories for the five genres
-This bar plot provides a breakdown of average IMDb ratings by run time categories for five genres: Action, Adventure, Comedy, Crime, and Drama.
+### 3.3 Breakdown of average IMDb ratings by runtime categories for the five genres
+This bar plot provides a breakdown of average IMDb ratings by runtime categories for five genres: Action, Adventure, Comedy, Crime, and Drama.
 
 
 ```{r echo=FALSE}
@@ -188,8 +188,8 @@ combined_data$Runtime_Category <- factor(combined_data$Runtime_Category,
 # Create the grouped bar plot
 ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating, fill = Genre)) +
   geom_bar(stat = "identity", position = "dodge", color = "black") +
-  labs(title = "Average IMDb Rating by Run Time and Genre",
-       x = "Run Time",
+  labs(title = "Average IMDb Rating by Runtime and Genre",
+       x = "Runtime",
        y = "Average IMDb Rating") +
   theme_minimal(base_size = 14) +  # Set base text size for readability
   theme(
@@ -201,7 +201,7 @@ ggplot(combined_data, aes(x = Runtime_Category, y = Average_Rating, fill = Genre
   scale_fill_brewer(palette = "Set2")  # Use a distinct color palette for genres
 
 ```
-Figure 2: Average IMDb Rating by RunTime and Genre 
+Figure 2: Average IMDb Rating by Runtime and Genre 
 
 
 If we break down our observations by genre and look at the runtime category, we see that: 
@@ -238,16 +238,16 @@ The problem with this conclusion however, is that this model assumes that the de
 lm2<- lm(averageRating ~ `30-60 min` + `60-90 min` + `90-120 min` + `120-150 min` + `150-180 min` + `>180 min`, movies)
 summary(lm2)
 ```
-This model shows us that a movie with a run time between 0 and 30 minutes will receive an average rating of 7.34 but in contrast to our first model, the average rating will not increase when the length of the movie also increases. 
+This model shows us that a movie with a runtime between 0 and 30 minutes will receive an average rating of 7.34 but in contrast to our first model, the average rating will not increase when the length of the movie also increases. 
 
-- A movie with a run time between 30 and 60 minutes will on average receive a rating of 6.66. 
-- A movie with a run time between 60 and 90 minutes will on average receive a rating of 6.02
-- A movie with a run time between 90 and 120 minutes will on average receive a rating of 6.13
-- A movie with a run time between 120 and 150 minutes will on average receive a rating of 6.50
-- A movie with a run time between 150 and 180 minutes will on average receive a rating of 6.64 
-- A movie with a run time larger than 180 minutes will on average receive a rating of 6.99. 
+- A movie with a runtime between 30 and 60 minutes will on average receive a rating of 6.66. 
+- A movie with a runtime between 60 and 90 minutes will on average receive a rating of 6.02
+- A movie with a runtime between 90 and 120 minutes will on average receive a rating of 6.13
+- A movie with a runtime between 120 and 150 minutes will on average receive a rating of 6.50
+- A movie with a runtime between 150 and 180 minutes will on average receive a rating of 6.64 
+- A movie with a runtime larger than 180 minutes will on average receive a rating of 6.99. 
 
-Since all of the dummies have a p-value smaller than 0.05, they are all individually significant. The model has a F-value of 1154 with a corresponding p-value of <2.2e-16. Therefore we can draw the conclusion that a movie will have its highest average rating when the run time is between 0 and 30 minutes, from there on the rating will decrease until it reaches its lowest point at a run time between 60 and 90 minutes and from that point it will start increasing again. 
+Since all of the dummies have a p-value smaller than 0.05, they are all individually significant. The model has a F-value of 1154 with a corresponding p-value of <2.2e-16. Therefore we can draw the conclusion that a movie will have its highest average rating when the runtime is between 0 and 30 minutes, from there on the rating will decrease until it reaches its lowest point at a runtime between 60 and 90 minutes and from that point it will start increasing again. 
 
 Because we want to check whether the rating will differ for different genres, we will also take a look at the regression for the individual genres drama, action, comedy, adventure and crime. For all of these different genres we will again use the dummy variable '0-30 min' as the standard to avoid strict multicollinearity.
 
@@ -257,7 +257,7 @@ Because we want to check whether the rating will differ for different genres, we
 lmDrama <- lm(averageRating ~ DDrama*`30-60 min` + DDrama*`60-90 min` + DDrama*`90-120 min` + DDrama*`120-150 min` + DDrama*`150-180 min` + DDrama*`>180 min`, movies)
 summary(lmDrama)
 ```
-The regression model for movies with the drama genre shows that drama movies will on average receive higher ratings than non-drama movies. Like in the previous model, drama movies will also have their highest average when the run time is between 0 and 30 minutes. From there the pattern changes in comparison to movies in general: their lowest average is at 30 to 60 minutes and from there the average will increase again until 90 to 120 minutes from where it slowly starts decreasing again. However, since the only dummy with a p-value smaller than 0.05 is 'DDrama:`30-60 min`TRUE', we cannot draw any significant conclusions for movies with the drama genre.
+The regression model for movies with the drama genre shows that drama movies will on average receive higher ratings than non-drama movies. Like in the previous model, drama movies will also have their highest average when the runtime is between 0 and 30 minutes. From there the pattern changes in comparison to movies in general: their lowest average is at 30 to 60 minutes and from there the average will increase again until 90 to 120 minutes from where it slowly starts decreasing again. However, since the only dummy with a p-value smaller than 0.05 is 'DDrama:`30-60 min`TRUE', we cannot draw any significant conclusions for movies with the drama genre.
 
 #### 4.2.2 Regressing for the Action dummy 
 
@@ -265,7 +265,7 @@ The regression model for movies with the drama genre shows that drama movies wil
 lmAction <- lm(averageRating ~ DAction*`30-60 min` + DAction*`60-90 min` + DAction*`90-120 min` + DAction*`120-150 min` + DAction*`150-180 min` + DAction*`>180 min`, movies)
 summary(lmAction)
 ```
-The regression model for movies with the action genre shows that action movies will also receive the highest average rating when the run time is between 0 and 30 minutes. From there the average will decrease until 60-90 minutes, slowly increase again until 120-150 minutes and then start decreasing again until it reaches its lowest average at a run time larger than 180 minutes. However, none of the individual dummies have a p-value smaller than 0.05 so we cannot draw any significant conclusions.
+The regression model for movies with the action genre shows that action movies will also receive the highest average rating when the runtime is between 0 and 30 minutes. From there the average will decrease until 60-90 minutes, slowly increase again until 120-150 minutes and then start decreasing again until it reaches its lowest average at a runtime larger than 180 minutes. However, none of the individual dummies have a p-value smaller than 0.05 so we cannot draw any significant conclusions.
 
 #### 4.2.3 Regressing for the Comedy dummy 
 
@@ -274,7 +274,7 @@ lmComedy <- lm(averageRating ~ DComedy*`30-60 min` + DComedy*`60-90 min` + DCome
 summary(lmComedy)
 
 ```
-Unlike any of the models shown before, the regression model for movies with the comedy genre shows that comedy movies will receive their lowest average rating when the run time is between 0 and 30 minutes. From there the rating starts increasing at every new dummy for run time except 120-150 minutes, and will receive its highest average rating at a run time larger than 180 minutes. However, again none of the individual dummies are significant and thus, we cannot draw any significant conclusions.
+Unlike any of the models shown before, the regression model for movies with the comedy genre shows that comedy movies will receive their lowest average rating when the runtime is between 0 and 30 minutes. From there the rating starts increasing at every new dummy for runtime except 120-150 minutes, and will receive its highest average rating at a runtime larger than 180 minutes. However, again none of the individual dummies are significant and thus, we cannot draw any significant conclusions.
 
 #### 4.2.4 Regressing for the Adventure dummy 
 
@@ -283,7 +283,7 @@ lmAdventure <- lm(averageRating ~ DAdventure*`30-60 min` + DAdventure*`60-90 min
 summary(lmAdventure)
 
 ```
-The regression model for movies with the adventure genre shows that adventure movies will receive their highest average at a run time between 0 and 30 minutes. The rating decreases at 30 to 60 minutes, starts increasing again until 120-150 minutes and then decreases again until it reaches its lowest average at a run time larger than 180 minutes. Again, none of the dummies have a p-value lower than 0.05, so we cannot draw any significant conclusions from this model.
+The regression model for movies with the adventure genre shows that adventure movies will receive their highest average at a runtime between 0 and 30 minutes. The rating decreases at 30 to 60 minutes, starts increasing again until 120-150 minutes and then decreases again until it reaches its lowest average at a runtime larger than 180 minutes. Again, none of the dummies have a p-value lower than 0.05, so we cannot draw any significant conclusions from this model.
 
 #### 4.2.5 Regressing for the Crime dummy 
 
@@ -291,12 +291,12 @@ The regression model for movies with the adventure genre shows that adventure mo
 lmCrime <- lm(averageRating ~ DCrime*`30-60 min` + DCrime*`60-90 min` + DCrime*`90-120 min` + DCrime*`120-150 min` + DCrime*`150-180 min` + DCrime*`>180 min`, movies)
 summary(lmCrime)
 ```
-Finally, the regression model for movies with the crime genre shows that crime movies will also peak in average at a run time of 0 to 30 minutes. The average reaches its lowest at 30-60 minutes, increases again until 120 to 150 minutes and then starts decreasing again. Like the other genre models, the individual dummies all have p-values smaller than 0.05 so we can again not draw any significant conclusions.
+Finally, the regression model for movies with the crime genre shows that crime movies will also peak in average at a runtime of 0 to 30 minutes. The average reaches its lowest at 30-60 minutes, increases again until 120 to 150 minutes and then starts decreasing again. Like the other genre models, the individual dummies all have p-values smaller than 0.05 so we can again not draw any significant conclusions.
 
 
 ## 5. Conclusion
 
-Looking back at our research question 'Is there a correlation between a movie's run time and its IMDb rating, with a focus on genre?', we can conclude that there is a very small positive correlation between the run time of a movies and its rating. However, diving deeper into this we found the optimal movie time to get a high rating on IMDB is between 0 and 30 minutes while movies with a run time larger than 180 minutes will score the second highest rating. Movies with a run time between 60 and 90 minutes will on average receive the lowest rating. 
+Looking back at our research question 'Is there a correlation between a movie's runtime and its IMDb rating, with a focus on genre?', we can conclude that there is a very small positive correlation between the runtime of a movies and its rating. However, diving deeper into this we found the optimal movie time to get a high rating on IMDB is between 0 and 30 minutes while movies with a runtime larger than 180 minutes will score the second highest rating. Movies with a runtime between 60 and 90 minutes will on average receive the lowest rating. 
 
 Focusing on the top 5 genres, drama, comedy, action, adventure and crime, gave us no interesting insights as all the results were insignificant.
 
