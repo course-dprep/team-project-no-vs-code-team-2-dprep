@@ -19,7 +19,7 @@ library(tidyverse)
 
 ```{r include=FALSE}
 # Importing the data set 
-movies <- read_csv("../gen/data-preparation/output/movies.csv")
+movies <- read_csv("../../gen/data-preparation/output/movies.csv")
 ```
 
 # The Impact of Runtime on IMDb Ratings: A Genre-Focused Study
