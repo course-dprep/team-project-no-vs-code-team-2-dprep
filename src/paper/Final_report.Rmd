@@ -1,10 +1,10 @@
 ---
 title: "Final Report"
 author: "team 2"
+date: "2024-10-09"
 output:
   pdf_document: default
-  html_document: default
-date: "2024-10-08"
+    
 ---
 
 ```{r include=FALSE}
@@ -44,7 +44,7 @@ Is there a correlation between a movie's runtime and its IMDb rating, with a foc
 ## 2. Method
 
 ### 2.1 Research Method 
-Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with 279.563 movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between run stime and audience satisfaction but also offers data-driven guidance for filmmakers.
+Firstly, to collect the required data, we extracted two datasets from the IMDb website that included the basic information of the different movies and one dataset with the ratings of the movies. After cleaning the data, we were left with 279.563 movies. These movies are used to conduct the regression analysis. This analysis allows for a clear exploration of how runtime correlates with ratings, while controlling for genre. This approach not only highlights the relationship between runtime and audience satisfaction but also offers data-driven guidance for filmmakers.
 
 ### 2.2 Variables 
 The following variables are being used in the data set:  
@@ -55,7 +55,6 @@ The following variables are being used in the data set:
 | tconst   | The movie ID   | numeric
 | titleType   | The title type, in the dataset only movies   | character
 | primaryTitle   | The title of the movie   |  character
-| isAdult   | Dummy variable stating if it is a adult movie   | logical  
 | startYear   | When the movie first launched   |  date
 | runtimeMinutes   | The total runtime of the movie in minutes   |  numeric
 | genres   | The genre of the movie   |   character
