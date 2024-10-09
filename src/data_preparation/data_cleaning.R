@@ -20,10 +20,11 @@ table(movies$titleType)
 movies <- movies %>% filter(movies$titleType == "movie")
 
 # Remove the 'endYear' column, as it only contains missing values (NAs)
-# Also remove 'originalTitle' column, as it's not needed for the analysis
+# Also remove 'originalTitle' and 'isAdult' column, as it's not needed for the analysis
 movies <- movies %>% 
   select(-endYear) %>%
-  select(-originalTitle)
+  select(-originalTitle) %>%
+  select(-isAdult)
 
 # Create a boxplot to visualize the distribution of 'runtimeMinutes' for all movies
 # Note: The boxplot will give an insights in the outliers 
